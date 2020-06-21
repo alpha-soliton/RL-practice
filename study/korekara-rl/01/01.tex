@@ -44,22 +44,34 @@
 \titlepage                     %% タイトルページ
 \end{frame}
 
-\begin{frame}                  %% 目次 (必要なければ省略)
+\begin{frame}{}                  %% 目次 (必要なければ省略)
 \tableofcontents
 \end{frame}
 
-\section{箇条書き}             %% セクション名
+\section{Characters in RL world}             %% セクション名
 \begin{frame}
-\frametitle{松本}              %% フレームタイトル
-
-\begin{itemize}
-\item 豊科\pause               %% \pause でとまる
-\item 穂高\pause
-\item 明科
-\end{itemize}
+\frametitle{Value function}              %% フレームタイトル
+\begin{aligned} V ^ { \pi } ( s ) & = \mathbb { E } ^ { \pi } \left[ G _ { t } | S _ { t } = s \right] \\ & = \sum _ { s ^ { \prime } \in \mathcal { S } } \sum _ { a \in \mathcal { A } ( s ) } P \left( S _ { t + 1 } = s ^ { \prime } , A _ { t } = a | S _ { t } = s \right) r \left( s , a , s ^ { \prime } \right) \\ & = \sum _ { s ^ { \prime } \in \mathcal { S } } \sum _ { a \in \mathcal { A } ( s ) } P \left( S _ { t + 1 } = s ^ { \prime } | S _ { t } = s , A _ { t } = a \right) \pi ( a | s ) r \left( s , a , s ^ { \prime } \right) \end{aligned}
 \end{frame}
 
-\section{定理型環境}           %% 定理型環境が使える
+\begin{frame}
+an example of finite horizon return $T=2$
+    \begin{equation}
+        G_t = R_{t+1} + R_{t+2}
+    \end{equation}
+therefore the value function can be calculated as following.
+\begin{align*}
+V^{\pi} ( s ) = & \mathbb { E } ^ { \pi } \left[ G _ { t } | S _ { t } = s \right] = \mathbb { E } ^ { \pi } \left[ R _ { t + 1 } + R _ { t + 2 } | S _ { t } = s \right] \nonumber\\ 
+    & = \sum _ { s ^ { \prime \prime } \in \mathcal { S } } \sum _ { a ^ { \prime } \in \mathcal { A } ( s ) } \sum _ { s ^ { \prime } \in \mathcal { S } } \sum _ { a \in \mathcal { A } ( s ) } \nonumber \\
+    & P \left( S _ { t + 2 } = s ^ { \prime \prime } , A _ { t + 1 } = a ^ { \prime } , S _ { t + 1 } = s ^ { \prime } , A _ { t } = a | S _ { t } = s \right) \nonumber\\ 
+    & \times \left\{ r \left( s , a , s ^ { \prime } \right) + r \left( s ^ { \prime } , a ^ { \prime } , s ^ { \prime \prime } \right) \right\} \nonumber\\ 
+    & = \sum _ { s ^ { \prime \prime } \in \mathcal { S } } \sum _ { a ^ { \prime } \in \mathcal { A } ( s ) } \sum _ { s ^ { \prime } \in \mathcal { S } } \sum _ { a \in \mathcal { A } ( s ) } \nonumber\\
+    & P \left( S _ { t + 2 } = s ^ { \prime \prime } | S _ { t + 1 } = s ^ { \prime } , A _ { t + 1 } = a ^ { \prime } \right) \pi \left( a ^ { \prime } | s ^ { \prime } \right) \nonumber\\ 
+    &\times P \left( S _ { t + 1 } = s ^ { \prime } | S _ { t } = s , A _ { t } = a \right) \pi ( a | s ) \left\{ r \left( s , a , s ^ { \prime } \right) + r \left( s ^ { \prime } , a ^ { \prime } , s ^ { \prime \prime } \right) \right\}
+\end{align*}
+\end{frame}
+
+\section{policy gradient theorem}           %% 定理型環境が使える
 \begin{frame}                  %% \newtheorem で新しい環境も作れる
 \begin{thm}
 定理型環境が使える。
@@ -77,7 +89,7 @@ example
 \end{exam}
 \end{frame}
 
-\section{文字の色}             %% 文字の色を変える
+\section{Relationship between $Q(s,a)$ function and $V(s)$}             %% 文字の色を変える
 \begin{frame}
 \frametitle{文字の色を変えてみよう}
 {\color{red}赤}\pause
